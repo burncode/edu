@@ -1,0 +1,12 @@
+<view class="container">
+
+  <div class="content">
+    <p>{{motto}}</p>
+    <div class="button">
+      <button type="warn" id="setting" bindtap="openSetting">点击授权</button>
+      <button type="primary" id="contact" open-type="contact">联系我们 </button>
+    </div>
+  </div>
+
+
+</view>

@@ -1,0 +1,19 @@
+.content {
+  width: 90%;
+  align-items: center;
+  text-align: center;
+}
+
+#setting {
+  width: 40%;
+  float: left;
+  left: 1rem;
+  top: 2rem;
+}
+
+#contact {
+  width: 40%;
+  float: right;
+  right: 1rem;
+  top: 2rem;
+}
