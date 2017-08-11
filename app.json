@@ -1,22 +1,25 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/auth/auth",
     "pages/me/me",
-    "pages/course/course"
+    "pages/course/course",
+    "pages/bind/bind",
+    "pages/404/404",
+    "pages/home/home"
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "首页",
-    "navigationBarTextStyle": "black"
+    "backgroundColor": "#ccc",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#2b333b",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "selectedColor": "#1aad19",
-    "borderStyle":"block",
+    "borderStyle": "block",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/home/home",
         "text": "首页",
         "iconPath": "image/icon/home.png",
         "selectedIconPath": "image/icon/home-select.png"
@@ -24,14 +27,14 @@
       {
         "pagePath": "pages/course/course",
         "text": "课程",
-        "iconPath":"image/icon/course.png",
+        "iconPath": "image/icon/course.png",
         "selectedIconPath": "image/icon/course-select.png"
       },
       {
         "pagePath": "pages/me/me",
         "text": "我的",
         "iconPath": "image/icon/me.png",
-        "selectedIconPath":"image/icon/me-select.png"
+        "selectedIconPath": "image/icon/me-select.png"
       }
     ]
   }

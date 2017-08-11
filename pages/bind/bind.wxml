@@ -1,0 +1,4 @@
+<!--bind.wxml-->
+<view>
+    <image src="{{userInfo.avatarUrl}}"></image>
+</view>

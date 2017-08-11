@@ -8,7 +8,17 @@ Page({
     ],
     interval: 3000, //一个图片保持时间
     duration: 1000 //动画时间
-  }
+  },
+  //下来加载  wx.stopPullDownRefresh();
+  onPullDownRefresh:function(){
+    // wx.showModal({
+    //   title: '刷新',
+    //   content: '刷新开始',
+    //   success:function(){
+    //     wx.stopPullDownRefresh();
+    //   }
+    // })
   
-})
+  }
 
+})

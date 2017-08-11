@@ -1,5 +1,4 @@
-<view class="container">
-
+<div class="warp">
   <div class="content">
     <p>{{motto}}</p>
     <div class="button">
@@ -8,5 +7,4 @@
     </div>
   </div>
 
-
-</view>
+</div>
