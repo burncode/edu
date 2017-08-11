@@ -29,7 +29,8 @@ function isBlank(str) {
   return str == '' || str == null || str === undefined
 }
 
-function getService(active) {
+function getService() {
+  var active = wx.getStorageSync("active");
   switch (active) {
     case "dev":
 
@@ -56,7 +57,7 @@ function getService(active) {
  */
 function doRequest(url, method, data, success) {
   wx.request({
-    url: getService("dev") + url,
+    url: getService() + url,
     data: data,
     method: method,
     success: function (res) {
@@ -94,213 +95,16 @@ function doRequest(url, method, data, success) {
     fail: function (error) {
 
       wx.showModal({
-        title: '网络异常',
-        content: "请确保证你的网络状态" + JSON.stringify(error),
+        title: "非法域名",
+        content: "域名 [" + getService()+"] 不在列表内"
       })
     }
   })
 }
 
-/**
- * 发送get请求
- */
-function doGet(url, data, success) {
-
-  wx.request({
-    url: getHost() + url,
-    data: data,
-    method: "GET",
-    success: function (res) {
-      var status = res.statusCode;
-      switch (status) {
-        case 404:
-          wx.showModal({
-            title: '404',
-            content: "没有对应的接口",
-          })
-          return;
-        case 502:
-          wx.showModal({
-            title: '服务器异常',
-            content: "服务器开小差了...",
-          })
-          return;
-        case 500:
-          wx.showModal({
-            title: '服务器异常',
-            content: res,
-          })
-          return;
-
-      }
-      if (res.data.code != 0) {
-        wx.showModal({
-          title: '服务器异常',
-          content: res.data.msg,
-        })
-      }
-      success && success(res.data.data);
-    },
-    fail: function (error) {
-      wx.showModal({
-        title: '服务器异常',
-        content: "服务器开小差了...",
-      })
-    }
-  })
-}
-/**
- * 发送post请求
- */
-function doPost(url, data, success) {
-
-  wx.request({
-    url: getHost() + url,
-    data: data,
-    method: "POST",
-    success: function (res) {
-      var status = res.statusCode;
-      switch (status) {
-        case 404:
-          wx.showModal({
-            title: '404',
-            content: "没有对应的接口",
-          })
-          return;
-        case 502:
-          wx.showModal({
-            title: '服务器异常',
-            content: "服务器开小差了...",
-          })
-          return;
-        case 500:
-          wx.showModal({
-            title: '服务器异常',
-            content: res,
-          })
-          return;
-      }
-
-      if (res.data.code != 0) {
-        wx.showModal({
-          title: '服务器异常',
-          content: res.data.msg,
-        })
-      }
-      success && success(res.data.data);
-    },
-    fail: function (error) {
-      wx.showModal({
-        title: '服务器异常',
-        content: "服务器开小差了...",
-      })
-    }
-  })
-}
-/**
- * 发送del请求
- */
-function doDel(url, data, success) {
-
-  wx.request({
-    url: getHost() + url,
-    data: data,
-    method: "DELETE",
-    success: function (res) {
-      var status = res.statusCode;
-      switch (status) {
-        case 404:
-          wx.showModal({
-            title: '404',
-            content: "没有对应的接口",
-          })
-          return;
-        case 502:
-          wx.showModal({
-            title: '服务器异常',
-            content: "服务器开小差了...",
-          })
-          return;
-        case 500:
-          wx.showModal({
-            title: '服务器异常',
-            content: res,
-          })
-          return;
-
-      }
-
-      if (res.data.code != 0) {
-        wx.showModal({
-          title: '服务器异常',
-          content: res.data.msg,
-        })
-      }
-      success && success(res.data.data);
-    },
-    fail: function (error) {
-      wx.showModal({
-        title: '服务器异常',
-        content: "服务器开小差了...",
-      })
-    }
-  })
-}
-/**
- * function
- */
-function doPut(url, data, success) {
-
-  wx.request({
-    url: getHost() + url,
-    data: data,
-    method: "PUT",
-    success: function (res) {
-      var status = res.statusCode;
-      switch (status) {
-        case 404:
-          wx.showModal({
-            title: '404',
-            content: "没有对应的接口",
-          })
-          return;
-        case 502:
-          wx.showModal({
-            title: '服务器异常',
-            content: "服务器开小差了...",
-          })
-          return;
-        case 500:
-          wx.showModal({
-            title: '服务器异常',
-            content: res,
-          })
-          return;
-      }
-
-      if (res.data.code != 0) {
-        wx.showModal({
-          title: '服务器异常',
-          content: res.data.msg,
-        })
-      }
-      success && success(res.data.data);
-    },
-    fail: function (error) {
-      wx.showModal({
-        title: '服务器异常',
-        content: "服务器开小差了...",
-      })
-    }
-  })
-}
 module.exports = {
   formatTime: formatTime,
   isNull: isNull,
   isBlank: isBlank,
-  doGet: doGet,
-  doPost: doPost,
-  doDel: doDel,
-  doPut: doPut,
   doRequest: doRequest
 }

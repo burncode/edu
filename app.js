@@ -7,6 +7,8 @@ App({
    */
   onLaunch: function () {
     this.login();
+    //设置环境
+    wx.setStorageSync('active', 'dev')
   },
 
   /**
