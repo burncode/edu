@@ -1,4 +1,18 @@
-<!--bind.wxml-->
-<view>
-    <image src="{{userInfo.avatarUrl}}"></image>
+<view class="reg">
+  <view>
+    <image class="logo" src="{{userInfo.avatarUrl}}"></image>
+  </view>
+
+  <view>
+    <input name="input" maxlength="30" value="{{openId}}" bindblur="userNameCheck" confirm-type="next" placeholder="请输入用户名" />
+  </view>
+
+  <view>
+    <input name="input" password="true" value="{{pwd}}" confirm-type="done" bindinput="passwordCheck" auto-focus="true" maxlength="30" placeholder="请输入密码" />
+  </view>
+
+  <view>
+    <button type="primary" bindtap="regUser" loading="{{loading}}" disabled="{{disabled}}">注册</button>
+  </view>
+
 </view>

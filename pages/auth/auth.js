@@ -34,7 +34,7 @@ Page({
          var auth = res.authSetting;
           //登录
          if (auth['scope.userInfo']) {
-           app.login();
+           app.getOpenId();
          }
        }
     })

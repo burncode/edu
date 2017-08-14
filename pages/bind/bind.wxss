@@ -1,1 +1,18 @@
 /* bind.wxss */
+
+.reg {
+  width: 90%;
+  margin: 2rem auto;
+}
+
+.reg .logo {
+  border-radius: 100%;
+  width: 6rem;
+  height: 6rem;
+}
+
+.reg input {
+  border: 1rem solid #eee;
+  line-height: 0.8rem;
+  font-size: 1.0rem;
+}

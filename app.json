@@ -1,11 +1,11 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/auth/auth",
     "pages/me/me",
     "pages/course/course",
     "pages/bind/bind",
-    "pages/404/404",
-    "pages/home/home"
+    "pages/404/404"
   ],
   "window": {
     "backgroundColor": "#ccc",
@@ -19,7 +19,7 @@
     "borderStyle": "block",
     "list": [
       {
-        "pagePath": "pages/home/home",
+        "pagePath": "pages/index/index",
         "text": "首页",
         "iconPath": "image/icon/home.png",
         "selectedIconPath": "image/icon/home-select.png"
