@@ -13,14 +13,25 @@ Page({
   //下来加载  wx.stopPullDownRefresh();
   onPullDownRefresh: function () {
 
-  }, /**
+  }, 
+  onLoad: function (options) {
+    // if (!util.isBlank(wx.getStorageSync('userInfo'))) {
+    //   //获取课程列表 //content/list
+    //   util.doGet("/content/list", "", function (res) {
+    //     console.log("res", res)
+    //   }, function (error) {
+    //     console.log("error：", error)
+    //   })
+    // }
+  },
+
+  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  //WAService.js:1 showToast  console.log("----",wx.getStorageSync('userInfo'))
     if (!util.isBlank(wx.getStorageSync('userInfo'))) {
       //获取课程列表 //content/list
-      util.doGet("/content/list", "", function (res) {
+      util.doGet("/content/list", { "item": 10,"pg":1,"tp":1}, function (res) {
         console.log("res", res)
       }, function (error) {
         console.log("error：", error)

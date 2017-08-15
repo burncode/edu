@@ -1,5 +1,10 @@
 //app.js
-var util = require('/utils/util.js')
+var util = require('/utils/util')
+
+import api from '/api/api'
+
+//var api = require('/api/api.json')
+
 App({
 
   /**
@@ -18,6 +23,9 @@ App({
    * 当小程序启动，或从后台进入前台显示，会触发 onShow
    */
   onShow: function (options) {
+    
+    console.log(api)
+
     if (util.isBlank(wx.getStorageSync('userInfo'))) {
       this.getOpenId();
     }
@@ -41,20 +49,21 @@ App({
       success: function (res) {
  
         //验证是否绑定
-        util.doGet("/auth/wx/xiaochengxu/bind",{ "code": res.code }, function (res) {
+        util.doGet(api.bind.check,{ "code": res.code }, function (res) {
            
           var bind = res.bind;
           var openId = res.openId;
+          wx.setStorageSync('openId', openId)
           if (!bind) {
             wx.redirectTo({
-              url: '/pages/bind/bind?openId=' + openId
+              url: '/pages/bind/bind'
             })
           } else {
 
             wx.setStorageSync('userInfo', res.userInfo)
            
           }
-          wx.setStorageSync('openId', openId)
+         
         });
       },
       fail: function (error) {

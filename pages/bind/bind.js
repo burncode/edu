@@ -1,14 +1,14 @@
 var app = getApp()
 var util = require('../../utils/util.js')
+var api = require("../../api/api.js")
 Page({
 
   data: {
     userInfo: "",
     openId: "",
-    disabled: true,
+    disabled: false,
     pwd: "",
     userName: "",
-    userNameIsChange: false,
     loading: false
   },
 
@@ -17,7 +17,8 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    var openId = options.openId;
+    var openId = wx.getStorageSync('openId');
+    var userName = openId.substring(0, 5);
     //防止页面被分享出去后获取不到openId
     if (util.isBlank(openId)) {
       app.getOpenId()
@@ -25,7 +26,7 @@ Page({
 
     this.setData({
       openId: openId,
-      userName: openId
+      userName: userName
     })
   },
 
@@ -38,7 +39,7 @@ Page({
     //调用登录接口
     wx.getUserInfo({
       success: function (res) {
-      
+
         that.setData({
           userInfo: res.userInfo
 
@@ -54,113 +55,107 @@ Page({
     })
 
   },
-  /**检查用户名 */
-  userNameCheck: function (e) {
+  getUserName: function (e) {
+    var that = this;
     var userName = e.detail.value;
-    var reg = /^[\d|\w|_]{3,30}$/;
-    var that = this;
-    that.data.userNameIsChange = true;
-
     that.setData({
-      loading: false,
-      disabled: true
-    })
-    if (!reg.test(userName)) {
-      wx.showToast({
-        title: "只能是字母数字下划线的3~20位字符",
-        image: "/image/icon/error.png",
-        mask: true,
-        duration: 3000
-      })
-      return;
-    }
-    //验证用户名是否存在
-    util.doGet("/reg/check/" + userName, "", function (res) {
-
-      that.setData({
-        userName: userName
-      })
-      if (!util.isBlank(that.data.pwd)) {
-        that.setData({
-          disabled: false
-        })
-      }
-    },function(eror){
-
-      that.setData({
-        loading: false,
-      })
+      userName: userName
     });
-
   },
-  passwordCheck: function (e) {
-    var pwd = e.detail.value;
+  /**检查用户名 */
+  userNameCheck: function (userName) {
+    var reg = /^[\d|\w|_]{3,20}$/;
     var that = this;
+    if (reg.test(userName)) {
 
-    that.setData({
-      disabled: true,
-      loading: false
+      //验证用户名是否存在
+      util.doGet(api.fn.fnCheck + userName, "", function (res) {
+
+        that.setData({
+          userName: userName
+        })
+        return true;
+      }, function (eror) {
+        return false;
+      });
+      return true;
+    }
+
+    wx.showToast({
+      title: "账号只能是字母数字下划线的3~20位字符",
+      image: "/image/icon/error.png",
+      mask: true,
+      duration: 3000
     })
-    if (pwd.length < 6) {
-
-
-      wx.showToast({
-        title: "密码太短了",
-        image: "/image/icon/warn.png",
-        mask: true,
-        duration: 2000
-      })
-      return;
-    }
-
-
+    return false;
+  },
+  getPwd: function (e) {
+    var that = this;
     that.setData({
-      pwd: pwd
+      pwd: e.detail.value
     });
+    //this.passwordCheck(e.detail.value);
+    //this.disabledReg();
+  },
+  passwordCheck: function (pwd) {
+    var reg = /^.{6,50}$/;
 
-    if (!util.isBlank(that.data.userName) || !that.data.userNameIsChange) {
+    if (reg.test(pwd)) {
+      var that = this;
       that.setData({
-        disabled: false
-      })
+        pwd: pwd
+      });
+      return true;
     }
+    wx.showToast({
+      title: "密码6~50个字符",
+      image: "/image/icon/warn.png",
+      mask: true,
+      duration: 3000
+    })
+    return false;
   },
   /**
    * 注册用户
    */
   regUser: function () {
-
-    var that = this;
-    that.setData({
-      disabled: true,
-      loading: true
-    })
-    //auth
     var userInfo = wx.getStorageSync('userInfo');
 
-    var form = {
-      "openId": that.data.openId,
-      "fn": that.data.userName,
-      "pw": that.data.pwd,
-      "nickName": userInfo.nickName,
-      "sex": userInfo.gender,
-      "logo": userInfo.avatarUrl,
-      "cId": wx.getStorageSync('cid'),
-      "tp":73
-    }
-    
-    util.doPost("/auth/wx/xiaochengxu/bind", form, function (res) {
-      console.log("reg:",res);
-      wx.switchTab({
-        url: "/pages/index/index"
-      })
-    },function(error){
-      console.log("error",JSON.stringify(error))
+    var that = this;
+    var fn = that.data.userName;
+    var pw = that.data.pwd;
+
+    if (that.passwordCheck(pw) && that.userNameCheck(fn)) {
       that.setData({
-        loading: false,
+        loading: true
       })
+      var form = {
+        "openId": that.data.openId,
+        "fn": fn,
+        "pw": pw,
+        "nickName": userInfo.nickName.substring(0, 80),
+        "sex": userInfo.gender,
+        "logo": userInfo.avatarUrl.length >= 200 ? "" : userInfo.avatarUrl,
+        "cId": wx.getStorageSync('cid')
+      }
 
-    });
+      util.doPost(api.bind.bind, form, function (res) {
+        console.log("reg:", res);
+        that.setData({
+          loading: false
+        })
 
+        wx.switchTab({
+          url: "/pages/index/index"
+        })
+      }, function (error) {
+        console.log("error", JSON.stringify(error))
+        that.setData({
+          loading: false
+        })
+
+      });
+    }
   },
   /**
    * 生命周期函数--监听页面显示

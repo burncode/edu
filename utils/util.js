@@ -127,8 +127,10 @@ function doRequest(url, method, data, success, error) {
       
       var code = isBlank(res.data.code) ? 0 : res.data.code;
       if (code != 0) {
+        //console.log("error:",res.data.msg)
+        msg = res.data.msg;
         wx.showToast({
-          title: res.data.msg,
+          title: msg,
           image: "/image/icon/error.png",
           mask: true,
           duration: 3000

@@ -4,11 +4,11 @@
   </view>
 
   <view>
-    <input name="input" maxlength="30" value="{{openId}}" bindblur="userNameCheck" confirm-type="next" placeholder="请输入用户名" />
+    <input name="input" maxlength="20" value="{{userName}}" bindblur="getUserName" bindinput="getUserName" confirm-type="next" placeholder="请输入用户名" />
   </view>
 
   <view>
-    <input name="input" password="true" value="{{pwd}}" confirm-type="done" bindinput="passwordCheck" auto-focus="true" maxlength="30" placeholder="请输入密码" />
+    <input name="input" password="true" value="{{pwd}}" confirm-type="done" bindblur="getPwd" bindinput="getPwd" auto-focus="true" maxlength="30" placeholder="请输入密码" />
   </view>
 
   <view>
