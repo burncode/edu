@@ -6,10 +6,12 @@ App({
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
   onLaunch: function () {
-    this.getOpenId();
+     
     //设置环境
     wx.setStorageSync('active', 'dev')
     wx.setStorageSync('cid', 330100)
+    wx.setStorageSync('userInfo', null)
+
   },
 
   /**
@@ -32,6 +34,7 @@ App({
 
   },
   getOpenId: function () {
+
     var that = this;
 
     wx.login({
@@ -39,10 +42,10 @@ App({
  
         //验证是否绑定
         util.doGet("/auth/wx/xiaochengxu/bind",{ "code": res.code }, function (res) {
-
+           
+          var bind = res.bind;
           var openId = res.openId;
-          if (!util.isBlank(openId)) {
-
+          if (!bind) {
             wx.redirectTo({
               url: '/pages/bind/bind?openId=' + openId
             })
@@ -51,6 +54,7 @@ App({
             wx.setStorageSync('userInfo', res.userInfo)
            
           }
+          wx.setStorageSync('openId', openId)
         });
       },
       fail: function (error) {

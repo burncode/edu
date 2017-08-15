@@ -38,7 +38,7 @@ Page({
     //调用登录接口
     wx.getUserInfo({
       success: function (res) {
-        that.data.userInfo = res.userInfo
+      
         that.setData({
           userInfo: res.userInfo
 

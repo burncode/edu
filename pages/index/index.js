@@ -1,3 +1,4 @@
+var util = require('../../utils/util.js')
 Page({
   data: {
     imgUrls: [
@@ -10,15 +11,22 @@ Page({
     duration: 1000 //动画时间
   },
   //下来加载  wx.stopPullDownRefresh();
-  onPullDownRefresh:function(){
-    // wx.showModal({
-    //   title: '刷新',
-    //   content: '刷新开始',
-    //   success:function(){
-    //     wx.stopPullDownRefresh();
-    //   }
-    // })
-  
+  onPullDownRefresh: function () {
+
+  }, /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+  //WAService.js:1 showToast  console.log("----",wx.getStorageSync('userInfo'))
+    if (!util.isBlank(wx.getStorageSync('userInfo'))) {
+      //获取课程列表 //content/list
+      util.doGet("/content/list", "", function (res) {
+        console.log("res", res)
+      }, function (error) {
+        console.log("error：", error)
+      })
+    }
+    
   }
 
 })

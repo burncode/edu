@@ -52,6 +52,9 @@ function getService() {
       return "";
   }
 }
+function getOpenId(){
+  return wx.getStorageSync('openId')
+}
 /**
  * 发送请求
  */
@@ -60,15 +63,23 @@ function doRequest(url, method, data, success, error) {
     url: getService() + url,
     data: data,
     method: method,
+    //withCredentials:true,
     header: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      "openId": getOpenId()
     },
     success: function (res) {
+      //console.log(res.header.Set-Cookie||'')
+      var sessionId = res.header.session|| "";
+      if (!isBlank(sessionId)){
+        wx.setStorageSync('sessionId', res.header.session)
+      }
+      
       var status = res.statusCode;
       var msg;
       switch (status) {
         case 400:
-           msg = res.data.msg;
+          msg = res.data.msg;
           wx.showModal({
             title: '参数异常(400)',
             content: msg,
@@ -76,21 +87,26 @@ function doRequest(url, method, data, success, error) {
           })
           error && error(msg);
           return;
+        case 401:
+          msg = res.data;
+          wx.showModal({
+            title: '401',
+            content: msg,
+            showCancel: false
+          })
+          error && error(msg);
+          return;
         case 404:
+          msg = "没有对应的接口(404)";
           wx.showModal({
             title: '404',
-            content: "没有对应的接口",
+            content: msg,
             showCancel: false
           })
-         // error && error(error);
+          error && error(msg);
           return;
-        case 502:
-          wx.showModal({
-            title: '服务器异常(502)',
-            content: "服务器开小差了...",
-            showCancel: false
-          })
-          return;
+
+
         case 500:
           msg = res.data.msg;
           wx.showModal({
@@ -100,9 +116,16 @@ function doRequest(url, method, data, success, error) {
           })
           error && error(msg);
           return;
-
+        case 502:
+          wx.showModal({
+            title: '服务器异常(502)',
+            content: "服务器开小差了...",
+            showCancel: false
+          })
+          return;
       }
-      var code = res.data.code;
+      
+      var code = isBlank(res.data.code) ? 0 : res.data.code;
       if (code != 0) {
         wx.showToast({
           title: res.data.msg,
@@ -111,11 +134,11 @@ function doRequest(url, method, data, success, error) {
           duration: 3000
         })
       }
-
-      success && success(res.data.data);
+  
+      success && success(isBlank(res.data.data) ? "" : res.data.data);
     },
     fail: function (error) {
-      console.log(JSON.stringify(error));
+      console.log("error:",JSON.stringify(error));
       wx.showToast({
         title: error.errMsg,
         image: "/image/icon/error.png",
