@@ -5,7 +5,8 @@
     "pages/me/me",
     "pages/course/course",
     "pages/bind/bind",
-    "pages/404/404"
+    "pages/404/404",
+    "pages/courseDetails/coursedetails"
   ],
   "window": {
     "backgroundColor": "#ccc",

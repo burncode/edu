@@ -1,0 +1,57 @@
+/**
+课程列表
+**/
+
+.inde-course {
+  background: white;
+  margin: 0.8rem auto;
+}
+
+.title {
+  height: 1.8rem;
+  display: block;
+  line-height: 1.8rem;
+  text-align: center;
+  border-bottom: solid 0.01rem #e2e2e2;
+}
+
+.title image {
+  width: 15px;
+  height: 15px;
+  margin: 0rem 0.2rem;
+}
+
+.title .more {
+  float: right;
+  margin: 0.5rem 0.8rem 0rem 0rem;
+}
+
+.content .item {
+  border-bottom: solid 0.01rem #ccc;
+  display: block;
+  overflow: hidden;
+  height: 8rem;
+  line-height: 8rem;
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.content .item .image {
+  width: 7rem;
+  height: 7rem;
+  float: left;
+}
+
+.content .item .image image {
+  border-radius: 3%;
+  width: 100%;
+  height: 100%;
+}
+
+.content .item .intro {
+  /* overflow: hidden;
+  line-height: 30px;
+  display: block;
+  font-size: 15px;
+  left: 5px; */
+}

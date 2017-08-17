@@ -8,5 +8,10 @@ module.exports = {
   //用户信息
   fn: {
     "fnCheck": "/reg/check/"//用户名检测
+  },
+  /**课程 */
+  content: {
+    "list": "/content/list",//课程列表
+    "details":"/content/detail/",//课程详情
   }
 }

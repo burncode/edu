@@ -18,12 +18,12 @@ Page({
   onLoad: function (options) {
     var that = this
     var openId = wx.getStorageSync('openId');
-    var userName = openId.substring(0, 5);
+    
     //防止页面被分享出去后获取不到openId
     if (util.isBlank(openId)) {
       app.getOpenId()
     }
-
+    var userName = openId.substring(0, 5);
     this.setData({
       openId: openId,
       userName: userName

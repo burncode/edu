@@ -69,11 +69,6 @@ function doRequest(url, method, data, success, error) {
       "openId": getOpenId()
     },
     success: function (res) {
-      //console.log(res.header.Set-Cookie||'')
-      var sessionId = res.header.session|| "";
-      if (!isBlank(sessionId)){
-        wx.setStorageSync('sessionId', res.header.session)
-      }
       
       var status = res.statusCode;
       var msg;
@@ -105,8 +100,15 @@ function doRequest(url, method, data, success, error) {
           })
           error && error(msg);
           return;
-
-
+        case 422:
+          msg = res.data.msg;
+          wx.showModal({
+            title: '服务器异常(422)',
+            content: msg,
+            showCancel: false
+          })
+          error && error(msg);
+          return;
         case 500:
           msg = res.data.msg;
           wx.showModal({

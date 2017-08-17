@@ -2,11 +2,80 @@
   <swiper indicator-dots="true" autoplay="true" interval="{{interval}}" duration="{{duration}}" indicator-active-color="#1aad19">
     <block wx:for="{{imgUrls}}" wx:key="{{index}}">
       <swiper-item>
-        <image src="{{item}}" class="slide-image" style="width:100%"/>
+        <image src="{{item}}" class="slide-image" style="width:100%" />
       </swiper-item>
     </block>
   </swiper>
-</view>
-<view class="classname">
-dsfsa
+
+
+  <view class="inde-course" wx:if="{{demandCount>0}}">
+    <div class="title">
+      <image src="/image/icon/demand.png"></image>
+      <text>点播课程</text>
+      <image src="/image/icon/more.png" class="more" wx:if="{{demandCount>3}}"></image>
+    </div>
+
+    <view class="content" wx:if="{{demandCount>0}}" wx:for="{{demands}}" wx:key="{{index}}" wx:for-item="item" id="{{item.id}}" data-title="{{item.title}}" bindtap="courseDetails">
+      <view class="item">
+        <div class="image">
+          <image src="{{item.cover}}" />
+        </div>
+
+        <div class="intro">
+          <text>来源:{{item.source}}</text>
+          <text>标题:{{item.title}}</text>
+        </div>
+      </view>
+    </view>
+
+  </view>
+
+
+  <view class="inde-course" wx:if="{{liveCount>0}}">
+    <div class="title">
+      <image src="/image/icon/live.png"></image>
+      <text>直播课程</text>
+      <image src="/image/icon/more.png" class="more" wx:if="{{liveCount>defualtItem}}"></image>
+    </div>
+
+    <view class="content" wx:if="{{liveCount>defualtItem}}" wx:for="{{lives}}" wx:key="{{index}}" wx:for-item="item" bindtap="courseDetails" id="{{item.id}}" data-tp="2">
+      <view class="item">
+
+        <div class="image">
+          <image src="{{item.cover}}" />
+        </div>
+
+        <div class="intro">
+          <text>来源:{{item.source}}</text>
+          <text>标题:{{item.title}}</text>
+        </div>
+      </view>
+    </view>
+
+  </view>
+
+
+  <view class="inde-course" wx:if="{{downlineCount>0}}">
+    <div class="title">
+      <image src="/image/icon/downlines.png"></image>
+      <text>线下课程</text>
+      <image src="/image/icon/more.png" class="more" wx:if="{{downlineCount>defualtItem}}"></image>
+    </div>
+
+    <div class="content" wx:if="{{downlineCount>defualtItem}}" wx:for="{{downlines}}" wx:key="{{index}}" wx:for-item="item" bindtap="courseDetails" id="{{item.id}}" data-tp="3">
+      <view class="item">
+
+        <div class="image">
+          <image src="{{item.cover}}" />
+        </div>
+
+        <div class="intro">
+          <text>来源:{{item.source}}</text>
+          <text>标题:{{item.title}}</text>
+        </div>
+      </view>
+    </div>
+
+  </view>
+
 </view>

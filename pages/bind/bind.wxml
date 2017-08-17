@@ -8,7 +8,7 @@
   </view>
 
   <view>
-    <input name="input" password="true" value="{{pwd}}" confirm-type="done" bindblur="getPwd" bindinput="getPwd" auto-focus="true" maxlength="30" placeholder="请输入密码" />
+    <input name="input" password="true" value="{{pwd}}" confirm-type="done" bindblur="getPwd" bindinput="getPwd" maxlength="30" placeholder="请输入密码" />
   </view>
 
   <view>
