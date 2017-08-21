@@ -37,7 +37,7 @@ Page({
     var current = event.currentTarget;
     
     wx.redirectTo({
-      url: '/pages/courseDetails/coursedetails?id=' + current.id + "&title=" + current.dataset.title
+      url: '/pages/course/details/details?id=' + current.id
     })
   },
 

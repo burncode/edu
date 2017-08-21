@@ -15,7 +15,7 @@
       <image src="/image/icon/more.png" class="more" wx:if="{{demandCount>3}}"></image>
     </div>
 
-    <view class="content" wx:if="{{demandCount>0}}" wx:for="{{demands}}" wx:key="{{index}}" wx:for-item="item" id="{{item.id}}" data-title="{{item.title}}" bindtap="courseDetails">
+    <view class="content" wx:if="{{demandCount>0}}" wx:for="{{demands}}" wx:key="{{index}}" wx:for-item="item" id="{{item.id}}" bindtap="courseDetails">
       <view class="item">
         <div class="image">
           <image src="{{item.cover}}" />
@@ -38,7 +38,7 @@
       <image src="/image/icon/more.png" class="more" wx:if="{{liveCount>defualtItem}}"></image>
     </div>
 
-    <view class="content" wx:if="{{liveCount>defualtItem}}" wx:for="{{lives}}" wx:key="{{index}}" wx:for-item="item" bindtap="courseDetails" id="{{item.id}}" data-tp="2">
+    <view class="content" wx:if="{{liveCount>0}}" wx:for="{{lives}}" wx:key="{{index}}" wx:for-item="item" bindtap="courseDetails" id="{{item.id}}">
       <view class="item">
 
         <div class="image">
@@ -62,7 +62,7 @@
       <image src="/image/icon/more.png" class="more" wx:if="{{downlineCount>defualtItem}}"></image>
     </div>
 
-    <div class="content" wx:if="{{downlineCount>defualtItem}}" wx:for="{{downlines}}" wx:key="{{index}}" wx:for-item="item" bindtap="courseDetails" id="{{item.id}}" data-tp="3">
+    <div class="content" wx:if="{{downlineCount>0}}" wx:for="{{downlines}}" wx:key="{{index}}" wx:for-item="item" bindtap="courseDetails" id="{{item.id}}">
       <view class="item">
 
         <div class="image">

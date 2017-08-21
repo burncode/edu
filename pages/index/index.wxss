@@ -4,7 +4,7 @@
 
 .inde-course {
   background: white;
-  margin: 0.8rem auto;
+  margin: 0.5rem auto;
 }
 
 .title {

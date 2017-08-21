@@ -38,14 +38,14 @@ function getService() {
 
     case "prod":
 
-      return "http://zyx.tunnel.ifugle.cn/edu/api";
+      return "https://edu.dingtax.cn/edu/api";
 
     case "test":
-      return "http://zyx.tunnel.ifugle.cn/edu/api";
+      return "https://edu-dev.dingtax.cn/edu/api";
 
     case "demo":
 
-      return "http://zyx.tunnel.ifugle.cn/edu/api";
+      return "https://edu-demo.dingtax.cn/edu/api";
 
     default:
       console.error("环境类型错误:", active, "[dev|test|demo|prod]")
@@ -69,7 +69,7 @@ function doRequest(url, method, data, success, error) {
       "openId": getOpenId()
     },
     success: function (res) {
-      
+     // console.log("request:",res)
       var status = res.statusCode;
       var msg;
       switch (status) {
@@ -80,6 +80,7 @@ function doRequest(url, method, data, success, error) {
             content: msg,
             showCancel: false
           })
+          console.log("400", res)
           error && error(msg);
           return;
         case 401:
@@ -89,6 +90,7 @@ function doRequest(url, method, data, success, error) {
             content: msg,
             showCancel: false
           })
+          console.log("401", res)
           error && error(msg);
           return;
         case 404:
@@ -98,6 +100,7 @@ function doRequest(url, method, data, success, error) {
             content: msg,
             showCancel: false
           })
+          console.log("404", res)
           error && error(msg);
           return;
         case 422:
@@ -107,6 +110,7 @@ function doRequest(url, method, data, success, error) {
             content: msg,
             showCancel: false
           })
+          console.log("422", res)
           error && error(msg);
           return;
         case 500:
@@ -116,6 +120,7 @@ function doRequest(url, method, data, success, error) {
             content: msg,
             showCancel: false
           })
+          console.log("500", res)
           error && error(msg);
           return;
         case 502:
@@ -124,6 +129,8 @@ function doRequest(url, method, data, success, error) {
             content: "服务器开小差了...",
             showCancel: false
           })
+          console.log("502", res)
+          error && error(msg);
           return;
       }
       

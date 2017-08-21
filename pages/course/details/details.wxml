@@ -1,0 +1,7 @@
+<!--coursedetails.wxml-->
+<view class="classname">
+
+  <!-- <video id ="vodeo" src="http://v.dingtax.cn/fd53ee3679384d5fa1c9625719c19e09/3af1bea8d85b49ee8497e9f6c681dde1-S00000001-100000.m3u8" controls></video> -->
+    <video id ="vodeo" src="{{url}}"  controls="controls" poster="{{cover}}"></video>
+
+</view>
