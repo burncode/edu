@@ -14,7 +14,7 @@ App({
     
     
     //设置环境
-    wx.setStorageSync('active', 'dev')
+    wx.setStorageSync('active', 'test')
     wx.setStorageSync('cid', 330100)
 
     wx.setStorageSync('userInfo', "")
