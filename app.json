@@ -17,7 +17,7 @@
   },
   "tabBar": {
     "selectedColor": "#1aad19",
-    "borderStyle": "block",
+    "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/index/index",
